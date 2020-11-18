@@ -12,71 +12,40 @@ function head_info() {
   echo ('<link rel="stylesheet" href="../css/styles.css">');
 }
 
-// Length Functions
+// Define Index
 
 if(!isset($_POST['submit'])) {
  $_POST['submit'] = '';
 }
 
+// Constants (Array)
+
+const LENGTH_TO_CENTIMETER = array(
+  "grain" => 0.7,
+  "thumb-length" => 2.1,
+  "palm" => 3.3,
+  "fist" => 10.4,
+  "foot" => 25,
+  "step" => 62.5,
+  "double-step" => 1500,
+  "rod" => 3000
+);
+
+// Length Functions
+
 function convert_to_centimeters($value, $fromUnit) {
-  switch($fromUnit) {
-    case 'grain':
-      return $value * 0.7;
-      break;
-    case 'thumb-length':
-      return $value * 2.1;
-      break;
-    case 'palm':
-      return $value * 3.3;
-      break;
-    case 'fist':
-      return $value * 10.4;
-      break;
-    case 'foot':
-      return $value * 25;
-      break;
-    case 'step':
-      return $value * 62.5;
-      break;
-    case 'double-step':
-      return $value * 1500;
-      break;
-    case 'rod':
-      return $value * 3000;
-      break;
-    default:
-      return "Unsupported Unit";
+  if(array_key_exists($fromUnit, LENGTH_TO_CENTIMETER)) {
+    return $value * LENGTH_TO_CENTIMETER[$fromUnit];
+  } else {
+    return "Unsupported Unit";  
   }
 }
   
 function convert_from_centimeters($value, $toUnit) {
-switch($toUnit) {
-    case 'grain':
-      return $value / 0.7;
-      break;
-    case 'thumb-length':
-      return $value / 2.1;
-      break;
-    case 'palm':
-      return $value / 3.3;
-      break;
-    case 'fist':
-      return $value / 10.4;
-      break;
-    case 'foot':
-      return $value / 25;
-      break;
-    case 'step':
-      return $value / 62.5;
-      break;
-    case 'double-step':
-      return $value / 1500;
-      break;
-    case 'rod':
-      return $value / 3000;
-      break;
-    default:
-      return "Unsupported Unit";
+  if(array_key_exists($toUnit, LENGTH_TO_CENTIMETER)) {
+    return $value / LENGTH_TO_CENTIMETER[$toUnit];
+  } else {
+    return "Unsupported Unit";  
   }
 }
 
